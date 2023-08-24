@@ -137,15 +137,14 @@ def find_password(request):
     return render(request, 'users/find_password.html', {'password_found': False})
 
 
-
-
 def index(request):
-        last_five_words = Word.objects.all().order_by('-id')[:5]
-        return render(request, 'users/index.html', {'last_five_words': last_five_words})
-
-def my_view(request):
+    last_five_words = Word.objects.all().order_by('-id')[:5]
     words = Word.objects.all()
-    random_five_words = random.sample(list(words), 5) # 단어 중 랜덤하게 5개 선택
-    return render(request, 'my_template.html', {'random_five_words': random_five_words})
+    random_five_words = random.sample(list(words), 5)  # 단어 중 랜덤하게 5개 선택
 
+    context = {
+        'last_five_words': last_five_words,
+        'random_five_words': random_five_words,
+    }
 
+    return render(request, 'users/index.html', context)
