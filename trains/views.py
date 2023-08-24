@@ -3,12 +3,15 @@ import random
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms import model_to_dict
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from trains.models import Train
 from users.models import Config
 from words.models import Word
+from django.db.models import Count
+from datetime import datetime, timedelta
+import json
 
 
 # Create your views here.
@@ -89,11 +92,43 @@ class TrainsShow(LoginRequiredMixin, View):
         else:
             TrainsUtil.train_repeat -= 1
             if TrainsUtil.train_repeat == 0:
-                return TrainsUtil.get_system_message_render(request, "연습 통계 페이지 구현 하기 ", 'trains-setting')
+                return redirect('word-practice-history')
             else:
                 train_word_dict = TrainsUtil.get_train_word_dict(TrainsUtil.train_word_list[0])
                 context = {'train_word': train_word_dict, 'show_num': 1, 'train_repeat': TrainsUtil.train_repeat}
                 return render(request, 'trains/trains_show.html', context)
+
+
+class WordPracticeHistory(View):
+    def get(self, request):
+        user = request.user
+
+        recent_practice_words = Train.objects.filter(id_user=user).order_by('-update_date')[:10]
+        frequent_practice_words = Train.objects.filter(id_user=user).values('id_word__en_word', 'id_word__ko_word_1').annotate(total_practice=Count('id_word__ko_word_1')).order_by('-total_practice')[:10]
+
+        today = datetime.now().date()  # 현재 날짜를 가져옵니다.
+        practice_data = []  # 그래프 데이터를 저장할 빈 리스트를 만듭니다.
+
+        # 최근 10일간의 연습 데이터를 가져와 practice_data에 추가합니다.
+        for days_ago in range(10, 0, -1):
+            target_date = today - timedelta(days=days_ago)  # 현재 날짜에서 days_ago일 전의 날짜를 계산합니다.
+
+            # 해당 날짜의 연습 세션 수를 가져옵니다.
+            session_count = Train.objects.filter(id_user=user, update_date__date=target_date).count()
+
+            # practice_data에 해당 날짜와 연습 세션 수를 추가합니다.
+            practice_data.append({"date": target_date.strftime("%Y-%m-%d"), "session_count": session_count})
+
+            # practice_data를 JSON 형식으로 변환하여 컨텍스트에 추가합니다.
+            practice_data_json = json.dumps(practice_data)
+
+        context = {
+            'recent_practice_words': recent_practice_words,
+            'frequent_practice_words': frequent_practice_words,
+            'practice_data_json': practice_data_json,
+        }
+
+        return render(request, 'trains/word_practice_history.html', context)
 
 
 class TrainsUtil:
