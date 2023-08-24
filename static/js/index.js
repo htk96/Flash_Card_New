@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   const openWordLinks = document.querySelectorAll('.open-word-random');
-  const customboxes = document.querySelectorAll('.custombox');
+  const customboxes = document.querySelectorAll('.custombox-random');
 
   openWordLinks.forEach((link, index) => {
     link.addEventListener('click', function() {
