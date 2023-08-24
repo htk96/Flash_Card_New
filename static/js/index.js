@@ -15,17 +15,32 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  const loadContentLink = document.getElementById('loadContentLink');
-  const contentDiv = document.querySelector('.notice-notice');
+  const noticeLink = document.querySelector('.notice-inner-box a'); // 클릭할 링크 선택
+  const noticeNotice = document.querySelector('.notice-notice'); // 토글할 요소 선택
 
-  loadContentLink.addEventListener('click', function(e) {
-    e.preventDefault(); // 기본 링크 동작을 중지
-    const iframe = document.createElement('iframe');
-    iframe.src = 'new_page.html'; // 여기에 새로운 페이지의 URL을 입력
-    iframe.style.width = '100%';
-    iframe.style.height = '500px';
+  noticeLink.addEventListener('click', function(e) {
+    e.preventDefault();
 
-    contentDiv.innerHTML = ''; // 기존 내용을 비움
-    contentDiv.appendChild(iframe); // iframe을 콘텐츠 div에 추가
+    if (noticeNotice.style.display === 'none' || noticeNotice.style.display === '') {
+      noticeNotice.style.display = 'block';
+    } else {
+      noticeNotice.style.display = 'none';
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const openWordLinks = document.querySelectorAll('.open-word-random');
+  const customboxes = document.querySelectorAll('.custombox');
+
+  openWordLinks.forEach((link, index) => {
+    link.addEventListener('click', function() {
+      const custombox = customboxes[index];
+      if (custombox.style.display === 'none' || custombox.style.display === '') {
+        custombox.style.display = 'block'; // 세부 정보 표시
+      } else {
+        custombox.style.display = 'none'; // 세부 정보 숨기기
+      }
+    });
   });
 });

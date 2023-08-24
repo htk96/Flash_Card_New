@@ -10,8 +10,10 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-#db자료 가져오기
+#db자료 가져오기 및 랜덤 이진수
 from words.models import Word
+import random
+from django.shortcuts import render
 
 @login_required
 def delete_account(request):
@@ -141,5 +143,9 @@ def index(request):
         last_five_words = Word.objects.all().order_by('-id')[:5]
         return render(request, 'users/index.html', {'last_five_words': last_five_words})
 
+def my_view(request):
+    words = Word.objects.all()
+    random_five_words = random.sample(list(words), 5) # 단어 중 랜덤하게 5개 선택
+    return render(request, 'my_template.html', {'random_five_words': random_five_words})
 
 

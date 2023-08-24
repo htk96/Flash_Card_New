@@ -12,7 +12,7 @@
             </div>
             <div>
                 <span>환영합니다, {{ user.username }}님! 로그인 되었습니다.</span>
-                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                <a href="{% url 'logout' %}" class="btn-index btn-danger">Logout</a>
                 <!--      기존 코드 -->
                 <!--                        <h2>환영합니다, {{ user.username }}님! 로그인 되었습니다.</h2>-->
                 <!--    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>-->
@@ -27,60 +27,107 @@
         <div class="notice">
             <div class="label">Notice</div>
             <div class="notice-inner-box">
-                <a href="#" id="loadContentLink">최신 변경 사항을 클릭하여 확인</a>
+                <a href="#" id="notice-link">최신 변경 사항을 클릭하여 확인</a>
+                <div class="notice-notice">1114115151515151515151</div>
             </div>
-            <div class="notice-notice">1114115151515151515151</div>
         </div>
-    </div>
 
-    <div class="score">
-        <div class="label">Ranking(score)</div>
-        <div class="label-B">Ranking(popular)</div>
-        <div class="score-a">
-            <div class="high-score-lanking"></div>
-            <div class="high-score-lanking"></div>
+
+        <div class="score">
+            <div class="label">Ranking(score)</div>
+            <div class="label-B">Ranking(popular)</div>
+            <div class="score-a">
+                <div class="high-score-ranking"></div>
+                <div class="high-score-ranking"></div>
+            </div>
+            <div class="high-score-ranking">
+
+                <div class="label">Word</div>
+                <div class="last-word-search-inner-box">
+                    <a class="open-modal">야호</a>
+                </div>
+
+                <div class="modal" id="myModal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <iframe src="https://youtube.com/shorts/f8WJh8FZ6sY?si=3Ix1G-i0lGLFzUBD"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="high-score-lanking">
-
-            <div class="label">Word</div>
+        <div class="last-word-search">
+            <div class="label">Random Word</div>
             <div class="last-word-search-inner-box">
-                <a class="open-modal">야호</a>
+                {% for word in random_five_words %}
+                <div><span class="open-word-random">{{ word.en_word }}</span></div>
+                <div class="custombox">
+                    <div class="card-body word-body">
+                        <table class="Tr-index">
+                            <tr>
+                                <td class="wordname">단어</td>
+                                <td class="wordname">품사</td>
+                                <td class="wordname">en<a>/</a><span
+                                        class="a2">kor</span></td>
+                                <td class="wordname">의미
+                                    <span class="a2"> en</span>
+                                    <span class="wordmean"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wordname">{{ word.en_word }}</td>
+                                <td class="wordtype">{{ word.word_class }}</td>
+                                <td class="a0">{{ word.en_phonetic }}<a>/</a><span
+                                        class="a2">{{ word.ko_phonetic }}</span></td>
+                                <td class="wordmean">{{ word.ko_word_1 }}
+                                    <span class="a2"> {{ word.ko_romanize }}</span>
+                                    {{ word.ko_word_2 }}
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
-            <div class="modal" id="myModal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <iframe src="https://youtube.com/shorts/f8WJh8FZ6sY?si=3Ix1G-i0lGLFzUBD"></iframe>
-                </div>
-            </div>
         </div>
-    </div>
-    <div class="last-word-search">
-        <div class="label">New Word</div>
-        <div class="last-word-search-inner-box">
-            {% for word in last_five_words %}
-            <div><span class="open-word">{{ word.en_word }}</span></div>
-            <div class="custombox">
+        <div class="last-word-search">
+            <div class="label">New Word</div>
+            <div class="last-word-search-inner-box">
+                {% for word in last_five_words %}
+                <div><span class="open-word">{{ word.en_word }}</span></div>
+                <div class="custombox">
+                    <div class="card-body word-body">
+                        <table class="Tr-index">
+                            <tr>
+                                <td class="wordname">단어</td>
+                                <td class="wordname">품사</td>
+                                <td class="wordname">en<a>/</a><span
+                                        class="a2">kor</span></td>
+                                <td class="wordname">의미
+                                    <span class="a2"> en</span>
+                                    <span class="wordmean"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wordname">{{ word.en_word }}</td>
+                                <td class="wordtype">{{ word.word_class }}</td>
+                                <td class="a0">{{ word.en_phonetic }}<a>/</a><span
+                                        class="a2">{{ word.ko_phonetic }}</span></td>
+                                <td class="wordmean">{{ word.ko_word_1 }}
+                                    <span class="a2"> {{ word.ko_romanize }}</span>
+                                    {{ word.ko_word_2 }}
+                                </td>
 
-                <div class="card-body word-body">
-                    <DIV class="row">
-                        <div><span class="wordname">{{ word.en_word }}</span></div>
-                        <div class="wordtype">{{word.word_class}}</div>
-                        <div class="line-break"></div>
-                        <div class="right">
-                            <span class="a0">{{ word.en_word }}</span>
-                            <span class="a2"> {{ word.ko_phonetic }}</span>
-                        </div>
-                        <div class="wordmean">{{ word.ko_word_1 }} <span class="a2"> {{ word.ko_romanize }}</span>
-                        </div>
-                        <div class="wordmean">{{ word.ko_word_2 }}</div>
-                    </DIV>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
         </div>
     </div>
-</div>
 </div>
 <!--인덱스 1번 공사중 (이진수)-->
 <!--인덱스 2번 공사중 (이진수)-->
@@ -108,8 +155,8 @@
             </div>
             <div>
                 <!--   기존 else 기록 구간    -->
-                <span><a href="{% url 'login' %}" class="btn btn-primary">로그인</a>후 이용가능</span><br>
-                <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>
+                <span><a href="{% url 'login' %}" class="btn-index btn-primary">로그인</a>후 이용가능</span><br>
+                <a href="{% url 'register' %}" class="btn-index btn-primary">회원가입</a>
                 <!--                              <h2><a href="{% url 'login' %}" class="btn btn-primary">로그인</a>후 이용가능</h2>    -->
                 <!--                            <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>      -->
                 <!--   기존 else 기록 구간    -->
