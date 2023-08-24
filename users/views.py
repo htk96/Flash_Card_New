@@ -138,7 +138,8 @@ def find_password(request):
 
 
 def index(request):
-        word_list = Word.objects.all()
-        return render(request, 'users/index.html', {'word_list': word_list})
+        last_five_words = Word.objects.all().order_by('-id')[:5]
+        return render(request, 'users/index.html', {'last_five_words': last_five_words})
+
 
 

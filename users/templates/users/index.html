@@ -54,13 +54,13 @@
             </div>
         </div>
         <div class="last-word-search">
-            <div class="label">Word</div>
+            <div class="label">New Word</div>
             <div class="last-word-search-inner-box">
-                <a class="open-word">apple</a>
-
+                {% for word in last_five_words %}
+                <div><span class="open-word">{{ word.en_word }}</span></div>
                 <div class="custombox">
-                    {% for word in word_list %}
-                    <div class="card-body">
+
+                    <div class="card-body word-body">
                         <DIV class="row">
                             <div><span class="wordname">{{ word.en_word }}</span></div>
                             <div class="wordtype">{{word.word_class}}</div>
@@ -74,8 +74,8 @@
                             <div class="wordmean">{{ word.ko_word_2 }}</div>
                         </DIV>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
