@@ -5,10 +5,21 @@
 <div class="text-center mt-4">
 
     <div>
-        <h1>Flash Card</h1>
+        <div class="title-name-log-login">
+            <div>
+                <h1 class="index-text-a">Flash Card</h1>
+                <span class="index-text-b">E-RUNNING LANGUAGE</span>
+            </div>
+            <div>
+                <span>환영합니다, {{ user.username }}님! 로그인 되었습니다.</span>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                <!--      기존 코드 -->
+                <!--                        <h2>환영합니다, {{ user.username }}님! 로그인 되었습니다.</h2>-->
+                <!--    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>-->
+            </div>
+        </div>
     </div>
-    <h2>환영합니다, {{ user.username }}님! 로그인 되었습니다.</h2>
-    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
     <!--인덱스 1번 공사중 (이진수)-->
 
     <div class="body-index">
@@ -46,15 +57,24 @@
             <div class="label">Word</div>
             <div class="last-word-search-inner-box">
                 <a class="open-word">apple</a>
-                <script src="index03.js"></script>
+
                 <div class="custombox">
-                    <div><span class="wordname">Word</span></div>
-                    <div class="wordtype">품사</div>
-                    <div class="line-break"></div>
-                    <div class="right"><span class="a0">발음 : </span><span class="a1">발음기호</span> <span
-                            class="a2">한글음성</span></div>
-                    <div class="wordmean">뜻</div>
-                    <div class="wordmean">뜻2</div>
+                    {% for word in word_list %}
+                    <div class="card-body">
+                        <DIV class="row">
+                            <div><span class="wordname">{{ word.en_word }}</span></div>
+                            <div class="wordtype">{{word.word_class}}</div>
+                            <div class="line-break"></div>
+                            <div class="right">
+                                <span class="a0">{{ word.en_word }}</span>
+                                <span class="a2"> {{ word.ko_phonetic }}</span>
+                            </div>
+                            <div class="wordmean">{{ word.ko_word_1 }} <span class="a2"> {{ word.ko_romanize }}</span>
+                            </div>
+                            <div class="wordmean">{{ word.ko_word_2 }}</div>
+                        </DIV>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

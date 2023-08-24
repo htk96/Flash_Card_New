@@ -10,6 +10,8 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+#db자료 가져오기
+from words.models import Word
 
 @login_required
 def delete_account(request):
@@ -136,6 +138,7 @@ def find_password(request):
 
 
 def index(request):
-    return render(request, 'users/index.html')
+        word_list = Word.objects.all()
+        return render(request, 'users/index.html', {'word_list': word_list})
 
 
