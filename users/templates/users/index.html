@@ -27,58 +27,60 @@
         <div class="notice">
             <div class="label">Notice</div>
             <div class="notice-inner-box">
-                <a href=""></a>
+                <a href="#" id="loadContentLink">최신 변경 사항을 클릭하여 확인</a>
             </div>
+            <div class="notice-notice">1114115151515151515151</div>
         </div>
+    </div>
 
-        <div class="score">
-            <div class="label">Ranking(score)</div>
-            <div class="label-B">Ranking(popular)</div>
-            <div class="score-a">
-                <div class="high-score-lanking"></div>
-                <div class="high-score-lanking"></div>
-            </div>
-            <div class="high-score-lanking">
-
-                <div class="label">Word</div>
-                <div class="last-word-search-inner-box">
-                    <a class="open-modal">야호</a>
-                </div>
-
-                <div class="modal" id="myModal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <iframe src="https://youtube.com/shorts/f8WJh8FZ6sY?si=3Ix1G-i0lGLFzUBD"></iframe>
-                    </div>
-                </div>
-            </div>
+    <div class="score">
+        <div class="label">Ranking(score)</div>
+        <div class="label-B">Ranking(popular)</div>
+        <div class="score-a">
+            <div class="high-score-lanking"></div>
+            <div class="high-score-lanking"></div>
         </div>
-        <div class="last-word-search">
-            <div class="label">New Word</div>
+        <div class="high-score-lanking">
+
+            <div class="label">Word</div>
             <div class="last-word-search-inner-box">
-                {% for word in last_five_words %}
-                <div><span class="open-word">{{ word.en_word }}</span></div>
-                <div class="custombox">
+                <a class="open-modal">야호</a>
+            </div>
 
-                    <div class="card-body word-body">
-                        <DIV class="row">
-                            <div><span class="wordname">{{ word.en_word }}</span></div>
-                            <div class="wordtype">{{word.word_class}}</div>
-                            <div class="line-break"></div>
-                            <div class="right">
-                                <span class="a0">{{ word.en_word }}</span>
-                                <span class="a2"> {{ word.ko_phonetic }}</span>
-                            </div>
-                            <div class="wordmean">{{ word.ko_word_1 }} <span class="a2"> {{ word.ko_romanize }}</span>
-                            </div>
-                            <div class="wordmean">{{ word.ko_word_2 }}</div>
-                        </DIV>
-                    </div>
+            <div class="modal" id="myModal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <iframe src="https://youtube.com/shorts/f8WJh8FZ6sY?si=3Ix1G-i0lGLFzUBD"></iframe>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
+    <div class="last-word-search">
+        <div class="label">New Word</div>
+        <div class="last-word-search-inner-box">
+            {% for word in last_five_words %}
+            <div><span class="open-word">{{ word.en_word }}</span></div>
+            <div class="custombox">
+
+                <div class="card-body word-body">
+                    <DIV class="row">
+                        <div><span class="wordname">{{ word.en_word }}</span></div>
+                        <div class="wordtype">{{word.word_class}}</div>
+                        <div class="line-break"></div>
+                        <div class="right">
+                            <span class="a0">{{ word.en_word }}</span>
+                            <span class="a2"> {{ word.ko_phonetic }}</span>
+                        </div>
+                        <div class="wordmean">{{ word.ko_word_1 }} <span class="a2"> {{ word.ko_romanize }}</span>
+                        </div>
+                        <div class="wordmean">{{ word.ko_word_2 }}</div>
+                    </DIV>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 </div>
 <!--인덱스 1번 공사중 (이진수)-->
 <!--인덱스 2번 공사중 (이진수)-->
