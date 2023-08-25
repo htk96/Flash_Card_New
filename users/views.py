@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.db.models import Count, Avg
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from exams.models import Exam
 from words.models import Word
@@ -182,13 +183,9 @@ def find_password(request):
 
 
 def index(request):
-    top_users = User.objects.annotate(train_count=Count('train_user')).order_by('-train_count')[:5]
-    print(top_users)
     words = Word.objects.all().order_by('-id')[:10]
-
     top_users = User.objects.annotate(train_count=Count('train_user')).order_by('-train_count')[:10]
 
-    from django.utils import timezone
     today = timezone.now().date()
     top_scores = Exam.objects.filter(reg_date__date=today) \
                      .values('id_user') \
