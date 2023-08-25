@@ -1,100 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if user.is_authenticated %}
+<h1>Flash Card Index Html</h1>
 <div class="text-center mt-4">
+    {% if user.is_authenticated %}
+        <h2>환영합니다, {{ user.username }}님! 로그인 되었습니다.</h2>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        {% else %}
+            <h2><a href="{% url 'login' %}" class="btn btn-primary">로그인</a>후 이용가능</h2>
+            <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>
 
-    <div>
-        <h1>Flash Card</h1>
-    </div>
-    <h2>환영합니다, {{ user.username }}님! 로그인 되었습니다.</h2>
-    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-    <!--인덱스 1번 공사중 (이진수)-->
-
-    <div class="body-index">
-
-        <div class="notice">
-            <div class="label">Notice</div>
-            <div class="notice-inner-box">
-                <a href=""></a>
-            </div>
-        </div>
-
-        <div class="score">
-            <div class="label">Ranking(score)</div>
-            <div class="label-B">Ranking(popular)</div>
-            <div class="score-a">
-                <div class="high-score-lanking"></div>
-                <div class="high-score-lanking"></div>
-            </div>
-            <div class="high-score-lanking">
-
-                <div class="label">Word</div>
-                <div class="last-word-search-inner-box">
-                    <a class="open-modal">야호</a>
-                </div>
-
-                <div class="modal" id="myModal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <iframe src="https://youtube.com/shorts/f8WJh8FZ6sY?si=3Ix1G-i0lGLFzUBD"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="last-word-search">
-            <div class="label">Word</div>
-            <div class="last-word-search-inner-box">
-                <a class="open-word">apple</a>
-                <script src="index03.js"></script>
-                <div class="custombox">
-                    <div><span class="wordname">Word</span></div>
-                    <div class="wordtype">품사</div>
-                    <div class="line-break"></div>
-                    <div class="right"><span class="a0">발음 : </span><span class="a1">발음기호</span> <span
-                            class="a2">한글음성</span></div>
-                    <div class="wordmean">뜻</div>
-                    <div class="wordmean">뜻2</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endif %}
+    {% endblock content %}
 </div>
-<!--인덱스 1번 공사중 (이진수)-->
-<!--인덱스 2번 공사중 (이진수)-->
-{% else %}
-<div class="index-main-img">
-    <div class="index-title-level"></div>
-    <div>
-        <div class="whitebox-index">
 
-            <div class="title-name-log-login">
-                <div>
-                    <h1 class="index-text-a">Flash Card</h1>
-                    <span class="index-text-b">E-RUNNING LANGUAGE</span>
-                </div>
-                <div>
-
-                </div>
-            </div>
-
-            <div class="notice">
-                <div class="label">Notice</div>
-                <div class="notice-inner-box">
-                    <a href=""></a>
-                </div>
-            </div>
-            <div>
-                <!--   기존 else 기록 구간    -->
-                <span><a href="{% url 'login' %}" class="btn btn-primary">로그인</a>후 이용가능</span><br>
-                <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>
-                <!--                              <h2><a href="{% url 'login' %}" class="btn btn-primary">로그인</a>후 이용가능</h2>    -->
-                <!--                            <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>      -->
-                <!--   기존 else 기록 구간    -->
-            </div>
-        </div>
-        <div class="image-CC-index">© Harvard GSD</div>
-    </div>
-</div>
-{% endif %}
-{% endblock content %}
