@@ -1,6 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
+from django.db.models import Count, Avg
 from django.shortcuts import render, redirect
+
+from exams.models import Exam
+from words.models import Word
 from .forms import LoginForm, RegisterForm, PasswordChangeForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -13,7 +17,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 
-#회원정보 변경
+# 회원정보 변경
 def profile_edit_view(request):
     if request.method == 'POST':
         user_change_form = UserChangeForm(request.POST, instance=request.user)
@@ -32,7 +36,8 @@ def profile_edit_view(request):
 
     return render(request, 'users/profile_edit.html', {'user_change_form': user_change_form})
 
-#비밀번호 변경
+
+# 비밀번호 변경
 @login_required
 def password_edit_view(request):
     if request.method == 'POST':
@@ -45,7 +50,7 @@ def password_edit_view(request):
     else:
         password_change_form = PasswordChangeForm(request.user)
 
-    return render(request, 'users/profile_password.html', {'password_change_form':password_change_form})
+    return render(request, 'users/profile_password.html', {'password_change_form': password_change_form})
 
 
 @login_required
@@ -97,6 +102,7 @@ def register(request):
             user.username = user.username.lower()  # 사용자명을 소문자로 변환하여 저장
             # 비밀번호 검증 추가
             password = form.cleaned_data.get('password1')
+            from django.core.exceptions import ValidationError
             try:
                 validate_password(password, user=user)
             except ValidationError as error:
@@ -176,7 +182,27 @@ def find_password(request):
 
 
 def index(request):
-    return render(request, 'users/index.html')
+    top_users = User.objects.annotate(train_count=Count('train_user')).order_by('-train_count')[:5]
+    print(top_users)
+    words = Word.objects.all().order_by('-id')[:10]
+
+    top_users = User.objects.annotate(train_count=Count('train_user')).order_by('-train_count')[:10]
+
+    from django.utils import timezone
+    today = timezone.now().date()
+    top_scores = Exam.objects.filter(reg_date__date=today) \
+                     .values('id_user') \
+                     .annotate(average_score=Avg('exam_point')) \
+                     .order_by('-average_score')[:10]
+
+    topex_users = []
+    for score_data in top_scores:
+        user_id = score_data['id_user']
+        user = User.objects.get(id=user_id)
+        topex_users.append({'username': user.username, 'average_score': score_data['average_score']})
+
+    context = {'words': words, 'top_users': top_users, 'topex_users': topex_users}
+    return render(request, 'users/index.html', context)
 
 
 def Information_Modification(request):
@@ -186,6 +212,6 @@ def Information_Modification(request):
 def Withdrawal(request):
     return render(request, 'users/Withdrawal.html')
 
+
 def profile_edit(request):
     return render(request, 'users/profile_edit.html')
-

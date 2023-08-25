@@ -38,13 +38,13 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         {% if user.is_authenticated %}
                         <li><a class="dropdown-item" href="/Information_Modification">설정</a></li>
-                        <li><a class="dropdown-item" href="/word-practice-history">연습 이력</a></li>
+                        <li><a class="dropdown-item" href="/trains/word-practice-history/">연습 이력</a></li>
                         <li><a class="dropdown-item" href="/Word_Test_History">테스트 이력</a></li>
-                            <hr class="dropdown-divider"/>
+                        <hr class="dropdown-divider"/>
                         <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                         {% else %}
-                            <li><a class="dropdown-item" href="{% url 'login' %}">로그인</a></li>
-                            <li><a class="dropdown-item" href="{% url 'register' %}">회원 가입</a></li>
+                        <li><a class="dropdown-item" href="{% url 'login' %}">로그인</a></li>
+                        <li><a class="dropdown-item" href="{% url 'register' %}">회원 가입</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -66,21 +66,21 @@
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     {% if user.is_authenticated %}
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'Information_Modification' %}">회원정보 수정</a>
-                                <a class="nav-link" href="{% url 'Withdrawal' %}">회원 탈퇴</a>
-                            </nav>
-                        </div>
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'Information_Modification' %}">회원정보 수정</a>
+                            <a class="nav-link" href="{% url 'Withdrawal' %}">회원 탈퇴</a>
+                        </nav>
+                    </div>
                     {% else %}
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'login' %}">로그인</a>
-                                <a class="nav-link" href="{% url 'register' %}">회원 가입</a>
-                            </nav>
-                        </div>
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'login' %}">로그인</a>
+                            <a class="nav-link" href="{% url 'register' %}">회원 가입</a>
+                        </nav>
+                    </div>
                     {% endif %}
                     <div class="sb-sidenav-menu-heading">단어 연습 관리</div>
                     <a class="nav-link collapsed" href="{% url 'trains-setting' %}">
@@ -112,7 +112,7 @@
                     <div class="sb-sidenav-menu-heading">words</div>
                     <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#words" aria-expanded="false"
                        aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></i></div>
                         단어입력
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -132,7 +132,7 @@
                 {% if user.is_authenticated %}
                 환영합니다, {{ user.username }}님! <br>로그인 되었습니다.
                 {% else %}
-                    로그인 후 이용가능
+                로그인 후 이용가능
                 {% endif %}
             </div>
         </nav>
@@ -177,4 +177,5 @@
 
 
 </body>
+
 </html>
