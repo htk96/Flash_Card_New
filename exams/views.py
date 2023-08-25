@@ -1,13 +1,10 @@
-import random
-import datetime
 import json
-
-from django.db.models import Avg, Count
-from django.http import JsonResponse
-from django.db.models.functions import TruncDate
+import random
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Avg, Count
+from django.db.models.functions import TruncDate
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.views import View
@@ -250,7 +247,6 @@ def home(request):
     return render(request, 'exams/home.html')
 
 
-
 class WordTestScore(View):
 
     def get(self, request):
@@ -307,10 +303,10 @@ class WordTestScore(View):
 class Word_Test_History(View):
     def get(self, request):
         test_counts_by_date = Exam.objects.filter(id_user=request.user) \
-            .annotate(tested_date=TruncDate('reg_date')) \
-            .values('tested_date') \
-            .annotate(test_count=Count('id')) \
-            .order_by('-tested_date')[:10]
+                                  .annotate(tested_date=TruncDate('reg_date')) \
+                                  .values('tested_date') \
+                                  .annotate(test_count=Count('id')) \
+                                  .order_by('-tested_date')[:10]
 
         difficulty_levels = [1, 2, 3, 4, 5]
 
