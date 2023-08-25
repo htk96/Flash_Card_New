@@ -44,3 +44,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+    const images = [
+      '{% static "assets/img/index_img_01.jpg" %}',
+      '{% static "assets/img/index_img_02.jpg" %}',
+      '{% static "assets/img/index_img_03.jpg" %}',
+      '{% static "assets/img/index_img_04.jpg" %}',
+      '{% static "assets/img/index_img_05.jpg" %}'
+    ];
+
+    const bannerImage = document.getElementById('bannerImage');
+    let imageIndex = 0;
+
+    function changeImage() {
+      bannerImage.style.opacity = 0; // 페이드아웃 효과 시작
+      setTimeout(() => {
+        bannerImage.src = images[imageIndex];
+        bannerImage.style.opacity = 1; // 페이드인 효과 시작
+        imageIndex = (imageIndex + 1) % images.length;
+      }, 1000); // 0.5초 뒤에 이미지 변경 및 페이드인 효과 시작
+    }
+
+    changeImage(); // 초기 이미지 설정
+    setInterval(changeImage, 4000); // 3.5초마다 이미지 변경 (0.5초 + 3초)

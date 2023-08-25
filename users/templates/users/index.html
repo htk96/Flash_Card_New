@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
 {% if user.is_authenticated %}
 <div class="text-center mt-4">
@@ -10,14 +11,19 @@
                 <h1 class="index-text-a">Flash Card</h1>
                 <span class="index-text-b">E-RUNNING LANGUAGE</span>
             </div>
-            <div>
-                <span>환영합니다, {{ user.username }}님! 로그인 되었습니다.</span>
-                <a href="{% url 'logout' %}" class="btn-index btn-danger">Logout</a>
+            <div class="title-name-log-login-welcome">
+                <span>환영합니다,<a href="/Information_Modification/"
+                               class="href-remove-index">{{ user.username }}</a>님!</span>
+
                 <!--      기존 코드 -->
                 <!--                        <h2>환영합니다, {{ user.username }}님! 로그인 되었습니다.</h2>-->
                 <!--    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>-->
             </div>
         </div>
+        <div class="title-name-log-login-icon">
+            <a href="{% url 'logout' %}" class="btn-index btn-danger">Logout</a>
+        </div>
+
     </div>
 
     <!--인덱스 1번 공사중 (이진수)-->
@@ -41,11 +47,11 @@
                 <div class="high-score-ranking"></div>
             </div>
             <div class="high-score-ranking">
-
-                <div class="label">Word</div>
-                <div class="last-word-search-inner-box">
-                    <a class="open-modal">야호</a>
+                <div class="banner">
+                    <img id="bannerImage" src='{% static "assets/img/index_img_05.jpg" %}' alt="Banner Image"
+                         class="img-fluid">
                 </div>
+
 
                 <div class="modal" id="myModal">
                     <div class="modal-content">
@@ -137,7 +143,7 @@
     <div>
         <div class="whitebox-index">
 
-            <div class="title-name-log-login">
+            <div class="title-name-log-login" style="text-align: center; justify-content: center;">
                 <div>
                     <h1 class="index-text-a">Flash Card</h1>
                     <span class="index-text-b">E-RUNNING LANGUAGE</span>
@@ -147,17 +153,17 @@
                 </div>
             </div>
 
-            <div class="notice">
-                <div class="label">Notice</div>
+            <div class="notice-logoutpage">
+                <div class="label-notice-logout">Notice</div>
                 <div class="notice-inner-box">
                     <a href="#" id="notice-link">최신 변경 사항을 클릭하여 확인</a>
                     <div class="notice-notice">1114115151515151515151</div>
                 </div>
             </div>
-            <div>
+            <div class="title-name-log-login-icon">
                 <!--   기존 else 기록 구간    -->
-                <span><a href="{% url 'login' %}" class="btn-index btn-primary">로그인</a>후 이용가능</span><br>
-                <a href="{% url 'register' %}" class="btn-index btn-primary">회원가입</a>
+                <span><a href="{% url 'login' %}" class="btn btn-primary">로그인</a></span>
+                <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>
                 <!--                              <h2><a href="{% url 'login' %}" class="btn btn-primary">로그인</a>후 이용가능</h2>    -->
                 <!--                            <a href="{% url 'register' %}" class="btn btn-primary">회원가입</a>      -->
                 <!--   기존 else 기록 구간    -->
