@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+
+<style>
+    #ttsPlayer_en {
+        display: none; /* TTS 플레이어를 숨김 */
+    }
+    #ttsPlayer_ko {
+        display: none; /* TTS 플레이어를 숨김 */
+    }
+</style>
+
 <div class="container mt-5 ">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -66,6 +77,16 @@
     </div>
 </div>
 
+<audio id="ttsPlayer_en" controls>
+    <source id="en_ttsSource" src="{% static exam_word.en_tts_url %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<audio id="ttsPlayer_ko" controls>
+    <source id="ko_ttsSource" src="{% static exam_word.ko_tts_url %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
 <script>
     function updateProgressBar() {
       let progressBar = document.getElementById('progressBar');
@@ -93,6 +114,29 @@
         document.getElementById("submitBtn").click();
     }
     setTimeout(submitForm, {{exam_word.exam_redirect_seconds}}); // 3초 후에 확인 버튼을 자동으로 클릭하여 폼 데이터 전송
+</script>
+
+<script>
+    window.onload = function () {
+        const ttsPlayerEn = document.getElementById('ttsPlayer_en');
+        const ttsPlayerKo = document.getElementById('ttsPlayer_ko');
+        const isTtsPlay = '{{is_tts_play}}' === 'True'
+
+        if (isTtsPlay) {
+            if ('{{exam_word.exam_types}}' === 'ko') {
+                setTimeout(() => {
+                    ttsPlayerEn.load();
+                    ttsPlayerEn.play();
+                }, 500);
+            } else if ('{{exam_word.exam_types}}' === 'en') {
+                setTimeout(() => {
+                    ttsPlayerKo.load();
+                    ttsPlayerKo.play();
+                }, 500);
+            }
+        }
+
+    };
 </script>
 
 {% endblock content %}

@@ -5,11 +5,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.views import View
+from gtts import gTTS
 
 from users.models import Config
 from words.models import Word
-
-
 
 
 class ExamsSetting(LoginRequiredMixin, View):
@@ -51,6 +50,7 @@ class ExamsSetting(LoginRequiredMixin, View):
             config.id_user = user
             ExamUtil.config_save(config, config_data_dict)
 
+        ExamUtil.is_tts_play = exam_tts_play
         exam_count = int(exam_word_count)
         ExamUtil.exam_type = exam_types
         ExamUtil.exam_seconds = int(exam_seconds)
@@ -60,8 +60,12 @@ class ExamsSetting(LoginRequiredMixin, View):
         all_words = Word.objects.all()
         ExamUtil.exam_word_list = random.sample(list(all_words), exam_count)
         exam_word_dict = ExamUtil.get_exam_word_dict(ExamUtil.exam_word_list[0])
-        exam_word_with_opt = ExamUtil.set_exam_word_options(exam_word_dict)
-        context = {'exam_word': exam_word_with_opt, 'show_num': 1}
+        ExamUtil.exam_word_with_opt = ExamUtil.set_exam_word_options(exam_word_dict)
+
+        ExamUtil.exam_word_with_opt['en_tts_url'] = ExamUtil.generate_tts('en', exam_word_dict['en_word'])
+        ExamUtil.exam_word_with_opt['ko_tts_url'] = ExamUtil.generate_tts('ko', exam_word_dict['ko_word_1'])
+
+        context = {'exam_word': ExamUtil.exam_word_with_opt, 'show_num': 1, 'is_tts_play': ExamUtil.is_tts_play}
         return render(request, 'exams_base/exam_base_show.html', context)
 
 
@@ -77,8 +81,12 @@ class ExamsShow(LoginRequiredMixin, View):
         if show_num < len(ExamUtil.exam_word_list):
             exam_word_dict = ExamUtil.get_exam_word_dict(ExamUtil.exam_word_list[show_num])
             print(exam_word_dict)
-            exam_word_with_opt = ExamUtil.set_exam_word_options(exam_word_dict)
-            context = {'exam_word': exam_word_with_opt, 'show_num': show_num + 1}
+            ExamUtil.exam_word_with_opt = ExamUtil.set_exam_word_options(exam_word_dict)
+
+            ExamUtil.exam_word_with_opt['en_tts_url'] = ExamUtil.generate_tts('en', exam_word_dict['en_word'])
+            ExamUtil.exam_word_with_opt['ko_tts_url'] = ExamUtil.generate_tts('ko', exam_word_dict['ko_word_1'])
+
+            context = {'exam_word': ExamUtil.exam_word_with_opt, 'show_num': show_num + 1, 'is_tts_play': ExamUtil.is_tts_play}
             return render(request, 'exams_base/exam_base_show.html', context)
         else:
             return ExamUtil.get_system_message_render(request, "TEST 통계 페이지 구현 하기 ", 'exam_base-setting')
@@ -89,6 +97,8 @@ class ExamUtil:
     hint_type = 0
     exam_seconds = 0
     exam_word_list = []
+    is_tts_play = False
+    exam_word_with_opt = {}
 
     @staticmethod
     def config_save(config: Config, config_data_dict):
@@ -137,7 +147,6 @@ class ExamUtil:
         else:
             exam_word_dict['exam_question'] = exam_word_dict['en_word']
 
-
         return exam_word_dict
 
     @staticmethod
@@ -147,6 +156,15 @@ class ExamUtil:
         for i in random.sample(range(word_length), (word_length + 1) // 2):
             letter_list[i] = ' _ '
         return ''.join(letter_list)
+
+    @staticmethod
+    def generate_tts(lang, tts_text):
+        text_to_speak = tts_text.replace("~", "모모")  # 플레이할 텍스트
+        tts = gTTS(text_to_speak, lang=lang)  # 언어 설정
+        tts_file_path = f'static/assets/tts/exam_base_{lang}_tts.mp3'  # 저장할 파일 경로
+
+        tts.save(tts_file_path)
+        return tts_file_path.replace('static/', '')
 
     @staticmethod
     def get_system_message_render(request, error_message, set_urls):
