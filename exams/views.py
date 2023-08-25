@@ -269,10 +269,9 @@ class WordTestScore(View):
                 .values('date') \
                 .annotate(average_score=Avg('exam_point')) \
                 .filter(exam_difficulty=difficulty)  # 해당 난이도의 평균 점수 계산
-            print(difficulty)
-            print(average_score)
+
             if average_score.exists():
-                print(difficulty)
+
                 difficulty_scores.append({'difficulty': difficulty, 'average_score': average_score[0]['average_score']})
             else:
                 difficulty_scores.append({'difficulty': difficulty, 'average_score': 0.0})
