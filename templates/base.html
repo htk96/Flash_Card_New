@@ -13,7 +13,6 @@
     <!--외부 CSS 파일 simple-datatables 라이브러리의 스타일 파일-->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>      <!--Django의 템플릿 태그를 사용하여 정적 파일 호출-->
     <link href="{% static 'css/custom.css' %}" rel="stylesheet"/>
-    <script src="{% static 'js/index.js' %}" ></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--차트 사용을 위한 js-->
     <!--외부 JavaScript 파일/Font Awesome 아이콘 라이브러리///External CSS file link code-->
@@ -84,7 +83,15 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         단어 연습
                     </a>
+                    <a class="nav-link" href="{% url 'word-practice-history' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
+                        단어 연습 기록
+                    </a>
                     <div class="sb-sidenav-menu-heading">단어 테스트 관리</div>
+                    <a class="nav-link" href="{% url 'exam_base-setting' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        단어 테스트 (기초)
+                    </a>
                     <a class="nav-link" href="{% url 'exam-setting' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         단어 테스트
@@ -135,15 +142,17 @@
         </main>
 
         <!--FOOTER START-->
-        <footer>
-               <div class="footer">
-                 <a class="href-remove">Python Team5 project : Flash-Card</a>
-                     <a class="blank-footer">123</a><a href="https://github.com/codingbjs" class="href-remove">원용석</a>
-                <a href="https://github.com/htk96" class="href-remove">홍태광</a>
-                <a href="https://github.com/thegofwl" class="href-remove">장우림</a>
-                <a href="https://github.com/jdongdong96" class="href-remove">정동우</a>
-                <a href="https://github.com/JsLeelee" class="href-remove">이진수</a>
-             </div>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
         </footer>
 
 

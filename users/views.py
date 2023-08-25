@@ -10,10 +10,7 @@ from django.contrib.auth.models import User
 # 회원가입 비밀번호 조건 안맞을 시 표시
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpResponse
-
-#db자료 가져오기 및 랜덤 이진수
-from words.models import Word
-import random
+from django.shortcuts import render, redirect
 
 
 #회원정보 변경
@@ -49,7 +46,6 @@ def password_edit_view(request):
         password_change_form = PasswordChangeForm(request.user)
 
     return render(request, 'users/profile_password.html', {'password_change_form':password_change_form})
-
 
 
 @login_required
@@ -180,14 +176,7 @@ def find_password(request):
 
 
 def index(request):
-    last_five_words = Word.objects.all().order_by('-id')[:5]
-    words = Word.objects.all()
-    random_five_words = random.sample(list(words), 5)  # 단어 중 랜덤하게 5개 선택
-
-    context = {
-        'last_five_words': last_five_words,
-        'random_five_words': random_five_words,
-    }
+    return render(request, 'users/index.html')
 
 
 def Information_Modification(request):
@@ -199,3 +188,4 @@ def Withdrawal(request):
 
 def profile_edit(request):
     return render(request, 'users/profile_edit.html')
+
