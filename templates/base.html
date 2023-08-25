@@ -36,12 +36,16 @@
                        data-bs-toggle="dropdown"
                        aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li>
+                        {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="/Information_Modification">설정</a></li>
+                        <li><a class="dropdown-item" href="/word-practice-history">연습 이력</a></li>
+                        <li><a class="dropdown-item" href="/Word_Test_History">테스트 이력</a></li>
                             <hr class="dropdown-divider"/>
-                        </li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'login' %}">로그인</a></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">회원 가입</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>
@@ -108,7 +112,7 @@
                     <div class="sb-sidenav-menu-heading">words</div>
                     <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#words" aria-expanded="false"
                        aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         단어입력
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -174,4 +178,3 @@
 
 </body>
 </html>
->>>>>>>>> Temporary merge branch 2
