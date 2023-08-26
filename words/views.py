@@ -47,12 +47,13 @@ class WordInput(LoginRequiredMixin, View):
 
         WordUtil.input_word_list = WordUtil.get_word_list(input_word)
         find_word_list_dict = WordUtil.find_reg_word(WordUtil.input_word_list)
-        input_word_list = find_word_list_dict['input_word_list']
+        print(find_word_list_dict)
+        WordUtil.input_word_list = find_word_list_dict['input_word_list']
         find_message = find_word_list_dict['find_message']
 
-        if len(input_word_list) > 0:
-            find_word_dict = WordUtil.get_daum_dict(input_word_list[0])
-            show_word_list = WordUtil.get_show_word_list(find_word_dict['is_success'], input_word_list, 0)
+        if len(WordUtil.input_word_list) > 0:
+            find_word_dict = WordUtil.get_daum_dict(WordUtil.input_word_list[0])
+            show_word_list = WordUtil.get_show_word_list(find_word_dict['is_success'], WordUtil.input_word_list, 0)
             context = {'show_word_list': show_word_list, 'find_message': find_message, 'find_word_num': 0,
                        'find_word_dict': find_word_dict}
             return render(request, 'words/word_find.html', context)
@@ -246,15 +247,14 @@ class WordUtil:
 
 
 """
+eat,
 every,
 example,
+easy,
 excellent,
 excite,
 excuse,
-exercise,
+east,
 eye,
-face,
-fact,
-fair,
-fall
+earth
 """
