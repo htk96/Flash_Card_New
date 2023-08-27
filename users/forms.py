@@ -24,7 +24,6 @@ class PasswordChangeForm(PasswordChangeForm):
         })
 
 class UserChangeForm(UserChangeForm):
-    password = None
     last_name = forms.CharField(label='성', widget=forms.TextInput(
         attrs={'class': 'form-control', 'maxlength':'80', 'oninput':"maxLengthCheck(this)",}),
     )

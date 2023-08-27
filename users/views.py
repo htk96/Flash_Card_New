@@ -31,7 +31,9 @@ def profile_edit_view(request):
                 messages.info(request, '수정 반영되지 않았습니다.')
             return render(request, 'users/profile_edit.html')
         else:
-            messages.error(request, '폼 데이터가 유효하지 않습니다. 다시 확인해주세요.')
+            print(user_change_form.errors)
+
+            # messages.error(request, '폼 데이터가 유효하지 않습니다. 다시 확인해주세요.')
     else:
         user_change_form = UserChangeForm(instance=request.user)
 
