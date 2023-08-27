@@ -1,35 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    input {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card mt-5">
                 <div class="card-header bg-primary text-white text-center">
-                    <h3 class="mb-0">회원가입</h3>
+                    <h3 class="mb-0">회 원 가 입</h3>
                 </div>
                 <div class="card-body">
                     <form method="POST" novalidate>
                         {% csrf_token %}
-                        <div class="mb-3">
-                            {{ form.username.label_tag }}
-                            {{ form.username }} <!-- 아이디 입력 필드 -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{{ form.username.label_tag }}</label>
+                            <div class="col-sm-9"> {{ form.username }} </div> <!-- 아이디 입력 필드  -->
                         </div>
-                        <div class="mb-3">
-                            {{ form.first_name.label_tag }}
-                            {{ form.first_name }} <!-- 이름 입력 필드 -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{{ form.first_name.label_tag }}</label>
+                            <div class="col-sm-9">{{ form.first_name }} </div> <!-- 이름 입력 필드 -->
                         </div>
-                        <div class="mb-3">
-                            {{ form.last_name.label_tag }}
-                            {{ form.last_name }} <!-- 성 입력 필드 -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{{ form.last_name.label_tag }}</label>
+                            <div class="col-sm-9">{{ form.last_name }} </div> <!-- 성 입력 필드 -->
                         </div>
-                        <div class="mb-3">
-                            {{ form.email.label_tag }}
-                            {{ form.email }} <!-- 이메일 입력 필드 -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{{ form.email.label_tag }}</label>
+                            <div class="col-sm-9">{{ form.email }} </div> <!-- 이메일 입력 필드 -->
                         </div>
-                        <div class="mb-3">
-                            {{ form.password1.label_tag }}
-                            {{ form.password1 }} <!-- 비밀번호 입력 필드 -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{{ form.password1.label_tag }}</label>
+                            <div class="col-sm-9">{{ form.password1 }} </div> <!-- 비밀번호 입력 필드 -->
                             {% if form.password1.errors %}
                                 <div class="text-danger">
                                     {% for error in form.password1.errors %}
@@ -38,9 +53,9 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="mb-3">
-                            {{ form.password2.label_tag }}
-                            {{ form.password2 }} <!-- 비밀번호 확인 입력 필드 -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Password confirm </label>
+                            <div class="col-sm-9">{{ form.password2 }} </div> <!-- 비밀번호 확인 입력 필드 -->
                             {% if form.password2.errors %}
                                 <div class="text-danger">
                                     {% for error in form.password2.errors %}

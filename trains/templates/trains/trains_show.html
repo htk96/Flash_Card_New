@@ -47,9 +47,6 @@
                             <label for="train_en_word" class="col-sm-3 col-form-label">영어단어</label>
                             <div class="col-sm-9">
                                 <input type="text" id="train_en_word" name="train_en_word" autofocus
-                                       {% if user.is_superuser %}
-                                       value="{{ train_word.en_word }}"
-                                       {% endif %}
                                        class="form-control" placeholder="영어 단어 ({{ train_word.en_word }}) 를 입력하세요"
                                        required>
                             </div>
@@ -59,9 +56,6 @@
                             <label for="train_ko_word_1" class="col-sm-3 col-form-label">단어뜻 1</label>
                             <div class="col-sm-9">
                                 <input type="text" id="train_ko_word_1" name="train_ko_word_1"
-                                       {% if user.is_superuser %}
-                                       value="{{ train_word.ko_word_1 }}"
-                                       {% endif %}
                                        class="form-control" placeholder="첫번째 단어뜻 ({{ train_word.ko_word_1 }}) 을 입력하세요"
                                        required>
                             </div>

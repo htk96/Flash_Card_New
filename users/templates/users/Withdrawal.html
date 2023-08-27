@@ -37,15 +37,6 @@
                                 <td class="profile_title">이메일</td>
                                 <td class="profile_content">{{ user.email }}</td>
                             </tr>
-                            <tr>
-                                <td class="profile_title">성</td>
-                                <td class="profile_content">{{ user.last_name }}</td>
-                            </tr>
-                            <tr>
-                                <td class="profile_title">이름</td>
-                                <td class="profile_content">{{ user.first_name }}</td>
-                            </tr>
-
                         </table>
 
                         <hr>
@@ -57,7 +48,7 @@
                                     <div>
                                         <input type="text" name="confirmation" id="confirmation" placeholder="회원탈퇴" required>
                                     </div>
-                                    <div>
+                                    <div class="mb-3 text-center mt-3">
                                         <button class="btn btn-primary" type="submit" id="withdrawal_Button" name="withdrawal_Button" value="회원탈퇴">회원 탈퇴</button>
                                     </div>
 

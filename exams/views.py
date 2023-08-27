@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Avg, Count
 from django.db.models.functions import TruncDate
 from django.forms import model_to_dict
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from gtts import gTTS
 
@@ -101,7 +101,7 @@ class ExamsShow(LoginRequiredMixin, View):
                        'is_tts_play': ExamUtil.is_tts_play}
             return render(request, 'exams/exams_show.html', context)
         else:
-            return ExamUtil.get_system_message_render(request, "TEST 통계 페이지 구현 하기 ", 'exam-setting')
+            return redirect('Word_Test_Score')
 
 
 class ExamUtil:

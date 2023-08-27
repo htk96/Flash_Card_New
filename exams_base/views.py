@@ -3,7 +3,7 @@ import random
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms import model_to_dict
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from gtts import gTTS
 
@@ -89,7 +89,7 @@ class ExamsShow(LoginRequiredMixin, View):
             context = {'exam_word': ExamUtil.exam_word_with_opt, 'show_num': show_num + 1, 'is_tts_play': ExamUtil.is_tts_play}
             return render(request, 'exams_base/exam_base_show.html', context)
         else:
-            return ExamUtil.get_system_message_render(request, "TEST 통계 페이지 구현 하기 ", 'exam_base-setting')
+            return redirect('exam_base-setting')
 
 
 class ExamUtil:
